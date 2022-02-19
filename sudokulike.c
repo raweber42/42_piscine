@@ -78,59 +78,44 @@ int ft_valid_placement(int row, int col, int array[5][6])
 	
 }
 
-// MAGIC START ###############
-int	ft_solve(int row, int col, int array[5][6]))
+// MAGIC ###############
+int	ft_solve(int row, int col, int array[5][6], int total_size)
 {
-	int i;
-
-	//i = 1; // go into actual array -> implemented in "else"
-	if (row < 4 && col < 4)
+	// base cases
+	if (col == total_size - 2) // end of column -> go to next column
 	{
-		if (array[row][col] != 0)
+		row++;
+		col = 1;
+	}
+	if (row > total_size - 2) // end of column LAST ROW -> finished round (probably have to go back)
+	{
+		//finish
+		return 1; /// ??????? right like that?
+	}
+
+	
+	int		value;
+
+	value = 1;
+	if (array[row][col] != 0)
+		return ; //already filled with value! // return value??
+
+	while (value <= 5)
+	{
+		array[row][col] = value; // choice
+		if (ft_valid_placement(row, col, ...)) // check constraints
 		{
-			if ((col + 1) < 4) // next column
-				return ft_solve(row, col + 1, array);
-			else if ((row + 1) < 4) // next row
-				return ft_solve(row + 1, 1, array);
-			else 
-				return 1; // solved!
-		}
-		else
-		{
-			i = 1;
-			while (i < 4)
+			if (ft_solve(row, col + 1, array))
 			{
-				if (ft_valid_placement(row, col, array, i)) // why did he use i+1?
-				{
-					array[row][col] = i;
-					if ((col + 1) < 4)
-					{
-						if (ft_solve(row, col + 1, array))
-							return 1;
-						else
-							array[row][col] = 0;
-					}
-					else if ((row + 1) < 4)
-					{
-						if (ft_solve(row + 1, 0, array))
-							return 1;
-						else
-							array[row][col] = 0;
-					}
-					else
-						return 1;
-				}
-				i++;
+				return 1;
 			}
 		}
-		return 0;
 	}
-	else
-		return 1;
-
+	// if doesn't fit, redo the change
+	array[row][col] = 0;
 }
 
-// MAGIC END ##############
+// MAGIC ##############
 
 
 // this should take command line arguments! // convert to to integers, they are chars!!!!
