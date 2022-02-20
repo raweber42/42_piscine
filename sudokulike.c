@@ -94,40 +94,94 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 			return 0;
 		i++;
 	}
-	
-	// alirezas additions
-	if (array[row][0] != '1' && col == 1)
+
+	// first turn
+	int temp_max = '0';
+	int visible = '0';
+	i = 1;
+	while (i < row)
 	{
-		if (digit > ('4' - array[row][0] + '1'))
+		if (array[row][i] > temp_max)
 		{
-			printf("\nHere1\n");
-			return 0;
-		}	 	
-	}
-	if (array[0][col] != '1' && row == 1)
-	{
-		if (digit > ('4' - array[0][col] + '1'))
-		{
-			printf("\nHere2\n");
-			return 0;
+			temp_max = array[row][i];
+			visible++;
 		}
+		i++;
 	}
-	if (array[row][5] != '1' && col == 4)
+	if (array[row][0] == visible) // check against clue
 	{
-		if (digit > ('4' - array[row][5] + '1'))
-		{
-			printf("\nHere3\n");
-			return 0;
-		}
+		if(digit > temp_max)
+				return 0;
 	}
-	if (array[5][col] != '1' && row == 4)
+	// second turn
+	temp_max = '0';
+	visible = '0';
+	i = 1;
+	while (i < col)
 	{
-		if (digit > ('4' - array[5][col] + '1'))
+		if (array[i][col] > temp_max)
 		{
-			printf("\nHere4\n");
-			return 0;
+			temp_max = array[i][col];
+			visible++;
 		}
+		i++;
 	}
+	if (array[0][col] == visible) // check against clue
+	{		
+		if(digit > temp_max)
+				return 0;
+	}
+
+	// third turn (check if it works backwards correctly?)
+	temp_max = '0';
+	visible = '0';
+	i = 5;
+	while (i >= row)
+	{
+		if (array[row][i] > temp_max)
+		{
+			temp_max = array[row][i];
+			visible++;
+		}
+		i--;
+	}
+	if (array[row][5] == visible) // check against clue
+	{
+		if(digit > temp_max)
+			return 0;
+	}
+	// fourth turn
+	temp_max = '0';
+	visible = '0';
+	i = 5;
+	while (i >= col)
+	{
+		if (array[i][col] > temp_max)
+		{
+			temp_max = array[i][col];
+			visible++;
+		}
+		i--;
+	}
+	if (array[0][col] == visible) // check against clue
+	{		
+		if(digit > temp_max)
+				return 0;
+	}
+	// temp_max = '0';
+	// visible = '0';
+	// i = 1;
+	// while (i < 5)
+	// {
+	// 	if (array[i][col] > temp_max)
+	// 	{
+	// 		temp_max = array[i][col];
+	// 		visible++;
+	// 	}
+	// 	i++;
+	// }
+	// if (array[0][col] > visible) // check against clue
+	// 		return 0;
 
 	return 1;
 }
