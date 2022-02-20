@@ -95,11 +95,12 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 		i++;
 	}
 
+	// could also do visible=array[x][y] and than visible--;
 	// first turn
 	int temp_max = '0';
 	int visible = '0';
 	i = 1;
-	while (i < row)
+	while (i < 5)
 	{
 		if (array[row][i] > temp_max)
 		{
@@ -108,16 +109,16 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 		}
 		i++;
 	}
-	if (array[row][0] == visible) // check against clue
+	if (array[row][0] < visible) // check against clue
 	{
-		if(digit > temp_max)
-				return 0;
+		//if(digit > temp_max)
+			return 0;
 	}
 	// second turn
 	temp_max = '0';
 	visible = '0';
 	i = 1;
-	while (i < col)
+	while (i < 5)
 	{
 		if (array[i][col] > temp_max)
 		{
@@ -126,17 +127,17 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 		}
 		i++;
 	}
-	if (array[0][col] == visible) // check against clue
+	if (array[0][col] < visible) // check against clue
 	{		
-		if(digit > temp_max)
-				return 0;
+		//if(digit > temp_max)
+			return 0;
 	}
 
 	// third turn (check if it works backwards correctly?)
 	temp_max = '0';
 	visible = '0';
 	i = 5;
-	while (i >= row)
+	while (i > 5)
 	{
 		if (array[row][i] > temp_max)
 		{
@@ -145,16 +146,16 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 		}
 		i--;
 	}
-	if (array[row][5] == visible) // check against clue
+	if (array[row][5] < visible) // check against clue
 	{
-		if(digit > temp_max)
+		//if(digit > temp_max)
 			return 0;
 	}
 	// fourth turn
 	temp_max = '0';
 	visible = '0';
 	i = 5;
-	while (i >= col)
+	while (i > 5)
 	{
 		if (array[i][col] > temp_max)
 		{
@@ -163,10 +164,10 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 		}
 		i--;
 	}
-	if (array[0][col] == visible) // check against clue
+	if (array[0][col] < visible) // check against clue
 	{		
-		if(digit > temp_max)
-				return 0;
+		//if(digit > temp_max)
+			return 0;
 	}
 	// temp_max = '0';
 	// visible = '0';
@@ -256,12 +257,12 @@ int main(void)
 	total_size = 6;
 	max = '4';
 	min = '1';
-	char	array[6][7] =   {{'0', '1', '2', '3', '2', '0'},
-						     {'1', '0', '0', '0', '0', '4'},
-						     {'2', '0', '0', '0', '0', '1'},
+	char	array[6][7] =   {{'0', '3', '1', '2', '2', '0'},
 						     {'2', '0', '0', '0', '0', '3'},
 						     {'2', '0', '0', '0', '0', '2'},
-						     {'0', '3', '2', '1', '2', '0'}};
+						     {'3', '0', '0', '0', '0', '1'},
+						     {'1', '0', '0', '0', '0', '2'},
+						     {'0', '1', '3', '2', '2', '0'}};
 
 	// int	array[5][6] =   {{0, 1, 2, 3, 0},
 	// 					 {1, 1, 0, 3, 3},
@@ -296,18 +297,19 @@ int main(void)
 		printf("After backtracking:\n");
 		row = 0;
 		col = 0;
+		printf("\n+----------+\n");
 		while (row < total_size)
-			{
+		{
 			while (col < total_size)
 			{
-				printf("%c", array[row][col]);
+				printf("|%c", array[row][col]);
 				col++;
 			}
 			row++;
 			col = 0;
-			printf("\n");
+			printf("\n+----------+\n");
 		}
-		printf("\n");
+		//printf("+-----+\n");
 	}
 	else
 		printf("Didn't work!\n");
