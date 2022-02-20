@@ -96,7 +96,7 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 	}
 	
 	// alirezas additions
-	if (array[row][0] != '1')
+	if (array[row][0] != '1' && col == 1)
 	{
 		if (digit > ('4' - array[row][0] + '1'))
 		{
@@ -104,7 +104,7 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 			return 0;
 		}	 	
 	}
-	if (array[0][col] != '1')
+	if (array[0][col] != '1' && row == 1)
 	{
 		if (digit > ('4' - array[0][col] + '1'))
 		{
@@ -112,7 +112,7 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 			return 0;
 		}
 	}
-	if (array[row][5] != '1')
+	if (array[row][5] != '1' && col == 4)
 	{
 		if (digit > ('4' - array[row][5] + '1'))
 		{
@@ -120,7 +120,7 @@ int ft_valid_placement(int row, int col, char array[6][7], char digit)
 			return 0;
 		}
 	}
-	if (array[5][col] != '1')
+	if (array[5][col] != '1' && row == 4)
 	{
 		if (digit > ('4' - array[5][col] + '1'))
 		{
@@ -153,10 +153,10 @@ int	ft_solve(int row, int col, char array[6][7])
 			digit = '1';
 			while (digit < '5')
 			{
-				printf("row: %d, col: %d, digit: %c\n", row, col, digit);
+				
 				if (ft_valid_placement(row, col, array, digit)) // why did he use i+1?
 				{
-					printf("Placed digit: %c\n", digit);
+					printf("row: %d, col: %d, placed digit: %c\n", row, col, digit);
 					array[row][col] = digit;
 					if ((col + 1) < 5)
 					{
@@ -178,7 +178,7 @@ int	ft_solve(int row, int col, char array[6][7])
 				digit++;
 			}
 		}
-		printf("digit: %d, here we are\n", digit);
+		printf("digit: %c, next loop\n", digit);
 		return 0;
 	}
 	else
@@ -202,12 +202,12 @@ int main(void)
 	total_size = 6;
 	max = '4';
 	min = '1';
-	char	array[6][7] =   {{'0', '2', '2', '1', '3', '0'},
+	char	array[6][7] =   {{'0', '1', '2', '3', '2', '0'},
+						     {'1', '0', '0', '0', '0', '4'},
+						     {'2', '0', '0', '0', '0', '1'},
+						     {'2', '0', '0', '0', '0', '3'},
 						     {'2', '0', '0', '0', '0', '2'},
-						     {'2', '0', '0', '0', '0', '2'},
-						     {'1', '0', '0', '0', '0', '3'},
-						     {'3', '0', '0', '0', '0', '1'},
-						     {'0', '2', '3', '2', '1', '0'}};
+						     {'0', '3', '2', '1', '2', '0'}};
 
 	// int	array[5][6] =   {{0, 1, 2, 3, 0},
 	// 					 {1, 1, 0, 3, 3},
