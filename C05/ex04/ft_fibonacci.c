@@ -1,0 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_fibonacci.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: raweber <raweber@student.42wolfsburg.de    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/17 11:22:55 by raweber           #+#    #+#             */
+/*   Updated: 2022/02/18 10:58:07 by raweber          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+int	ft_fibonacci(int index)
+{
+	if (index < 0)
+	{
+		return (-1);
+	}
+	if (index == 0)
+	{
+		return (0);
+	}
+	if (index == 1)
+	{
+		return (1);
+	}
+	else
+	{
+		return (ft_fibonacci(index - 1) + ft_fibonacci(index - 2));
+	}
+}
